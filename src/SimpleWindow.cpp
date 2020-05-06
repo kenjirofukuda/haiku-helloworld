@@ -1,12 +1,51 @@
 #include <Window.h>
 #include <Application.h>
 
-class SimpleWindow : public BWindow {
+class SimpleView : public BView 
+{
+public:
+    SimpleView(BRect frame, const char *name,
+               uint32 resizeMask, uint32 flags);
+    ~SimpleView();
+
+private:
+    void Draw(BRect updateRect);    
+};
+
+    
+SimpleView::SimpleView(BRect frame, const char *name,
+               uint32 resizeMask, uint32 flags)
+    : BView(frame, name, resizeMask, flags)
+{
+}
+
+
+SimpleView::~SimpleView()
+{
+}
+
+
+void
+SimpleView::Draw(BRect updateRect)
+{
+    rgb_color currColor = this->HighColor();
+    
+    this->SetHighColor(0xDD, 0xDD, 0xDD);
+    this->FillRect(this->Frame());
+
+    this->SetHighColor(currColor);
+    this->DrawString("This is the by first app", BPoint(10, 10));
+    this->SetHighColor(255, 0, 0);
+    this->FillRect(BRect(110, 30, 140, 60));
+}
+
+
+class SimpleWindow : public BWindow
+{
 public:
     SimpleWindow(BRect frame);
     // virtual bool    QuitRequested();
     void Quit();
-    void Show();    
 };
 
 
@@ -15,31 +54,11 @@ SimpleWindow::SimpleWindow(BRect frame)
               B_TITLED_WINDOW,
               B_NOT_RESIZABLE | B_NOT_ZOOMABLE) 
 {
-    BView* view;
+    SimpleView* view;
 
-    view = new BView(this->Bounds(), "content", B_FOLLOW_ALL_SIDES, 0);
+    view = new SimpleView(this->Bounds(), "content",
+                          B_FOLLOW_ALL_SIDES, B_WILL_DRAW);
     this->AddChild(view);    
-}
-
-
-void
-SimpleWindow::Show()
-{
-    BView* view = this->FindView("content");
-    rgb_color currColor = view->HighColor();
-
-    BWindow::Show();
-    ::snooze(40 * 1000);
-    
-    this->Lock();
-    view->SetHighColor(0xDD, 0xDD, 0xDD);
-    view->FillRect(view->Frame());
-    view->SetHighColor(currColor);
-    view->DrawString("This is the by first app", BPoint(10, 10));
-    view->SetHighColor(255, 0, 0);
-    view->FillRect(BRect(110, 30, 140, 60));
-    this->Unlock();
-    this->Flush();    
 }
 
 
