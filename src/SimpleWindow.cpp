@@ -17,6 +17,7 @@ SimpleView::SimpleView(BRect frame, const char *name,
                uint32 resizeMask, uint32 flags)
     : BView(frame, name, resizeMask, flags)
 {
+    this->SetViewColor(0xDD, 0xDD, 0xDD);
 }
 
 
@@ -28,12 +29,6 @@ SimpleView::~SimpleView()
 void
 SimpleView::Draw(BRect updateRect)
 {
-    rgb_color currColor = this->HighColor();
-    
-    this->SetHighColor(0xDD, 0xDD, 0xDD);
-    this->FillRect(this->Frame());
-
-    this->SetHighColor(currColor);
     this->DrawString("This is the by first app", BPoint(10, 10));
     this->SetHighColor(255, 0, 0);
     this->FillRect(BRect(110, 30, 140, 60));
