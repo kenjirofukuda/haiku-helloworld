@@ -6,8 +6,10 @@ class SimpleWindow : public BWindow
 {
 public:
     SimpleWindow(BRect frame);
-    virtual bool QuitRequested();
-    void InitContent(BView *content);
+    void Quit() override; 
+    bool QuitRequested() override;
+
+    void InitContent(BMenuBar* menuBar, BView* content);
 };
 
 #endif // _SIMPLE_WINDOW_H_
