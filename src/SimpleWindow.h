@@ -1,15 +1,15 @@
 #ifndef _SIMPLE_WINDOW_H_
 #define _SIMPLE_WINDOW_H_
-#include <interface/Window.h>
 
-class SimpleWindow : public BWindow
+#include "RegularWindow.h"
+
+class SimpleWindow : public RegularWindow
 {
 public:
     SimpleWindow(BRect frame);
-    void Quit() override; 
-    bool QuitRequested() override;
 
-    void InitContent(BMenuBar* menuBar, BView* content);
+private:    
+    bool QuitRequested() override;
 };
 
 #endif // _SIMPLE_WINDOW_H_
