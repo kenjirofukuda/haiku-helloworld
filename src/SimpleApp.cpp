@@ -32,6 +32,12 @@ SimpleApp::ReadyToRun()
     view = new ButtonView(BRect(), "content",
                           B_FOLLOW_ALL_SIDES, B_WILL_DRAW);
     window->InitContent(menuBar, view);
+    float minWidth;
+    float maxWidth;
+    float minHeight;
+    float maxHeight;
+    window->GetSizeLimits(&minWidth, &maxWidth, &minHeight, &maxHeight);
+    window->SetSizeLimits(140, maxWidth, 185, maxHeight);
     window->CenterOnScreen();    // Haiku Only
     window->Show();
 }
