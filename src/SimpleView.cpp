@@ -1,6 +1,4 @@
-#ifndef _SIMPLE_VIEW_H_
 #include "SimpleView.h"
-#endif
 
 #include <interface/Window.h>
 #include "KGCircle.h"

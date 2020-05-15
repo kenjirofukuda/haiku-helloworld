@@ -1,5 +1,5 @@
-#ifndef _SIMPLE_VIEW_H_
-#define _SIMPLE_VIEW_H_
+#ifndef SIMPLE_VIEW_H
+#define SIMPLE_VIEW_H
 #include <interface/View.h>
 
 class SimpleView : public BView 
@@ -18,4 +18,4 @@ private:
     void HotSpotResult(int32 hotSpot);
 };
 
-#endif // _SIMPLE_VIEW_H_
+#endif // SIMPLE_VIEW_H

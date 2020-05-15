@@ -1,6 +1,4 @@
-#ifndef _SIMPLE_APP_H_
 #include "SimpleApp.h"
-#endif
 #include "SimpleWindow.h"
 #include "ButtonView.h"
 

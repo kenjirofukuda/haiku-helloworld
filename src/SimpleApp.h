@@ -1,5 +1,5 @@
-#ifndef _SIMPLE_APP_H_
-#define _SIMPLE_APP_H_
+#ifndef SIMPLE_APP_H
+#define SIMPLE_APP_H
 #include <app/Application.h>
 
 class BMenuBar;
@@ -15,4 +15,4 @@ private:
   BMenuBar* MakeMenuBar();
 };
 
-#endif // _SIMPLE_APP_H_
+#endif // SIMPLE_APP_H

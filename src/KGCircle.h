@@ -1,5 +1,5 @@
-#ifndef _KG_CIRCLE_H_
-#define _KG_CIRCLE_H_
+#ifndef KG_CIRCLE_H
+#define KG_CIRCLE_H
 #include <interface/View.h>
 
 class KGCircle
@@ -15,4 +15,4 @@ private:
     float fRadius;
 };
 
-#endif // _KG_CIRCLE_H_
+#endif // KG_CIRCLE_H

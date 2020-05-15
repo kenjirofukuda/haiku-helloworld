@@ -1,6 +1,4 @@
-#ifndef _KG_CIRCLE_H_
 #include "KGCircle.h"
-#endif
 
 KGCircle::KGCircle(BPoint center, float radius)
     : fCenter(center), fRadius(radius)

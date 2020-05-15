@@ -1,5 +1,5 @@
-#ifndef _SIMPLE_WINDOW_H_
-#define _SIMPLE_WINDOW_H_
+#ifndef SIMPLE_WINDOW_H
+#define SIMPLE_WINDOW_H
 
 #include "RegularWindow.h"
 
@@ -12,4 +12,4 @@ private:
     bool QuitRequested() override;
 };
 
-#endif // _SIMPLE_WINDOW_H_
+#endif // SIMPLE_WINDOW_H

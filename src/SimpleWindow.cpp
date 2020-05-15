@@ -1,6 +1,5 @@
 #include "SimpleWindow.h"
 #include <app/Application.h>
-#include <interface/MenuBar.h>
 #include <interface/Alert.h>
 
 

@@ -1,7 +1,4 @@
-#ifndef _SIMPLE_VIEW_H_
 #include "ButtonView.h"
-#endif
-
 #include <interface/Button.h>
 #include <interface/StringView.h>
 

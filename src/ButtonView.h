@@ -1,5 +1,5 @@
-#ifndef _SIMPLE_VIEW_H_
-#define _SIMPLE_VIEW_H_
+#ifndef SIMPLE_VIEW_H
+#define SIMPLE_VIEW_H
 #include <interface/View.h>
 
 class ButtonView : public BView 
@@ -8,12 +8,6 @@ public:
     ButtonView(BRect frame, const char *name,
                uint32 resizeMask, uint32 flags);
 
-private:
-    // void Draw(BRect updateRect);
-    // void MouseDown(BPoint where);
-    // void HotSpotAction(bool currInside, bool prevInside, int32 hotSpot);
-    // int32 FindHotSpot(BPoint where);
-    // void HotSpotResult(int32 hotSpot);
 };
 
-#endif // _SIMPLE_VIEW_H_
+#endif // SIMPLE_VIEW_H
