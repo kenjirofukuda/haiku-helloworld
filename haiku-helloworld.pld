@@ -1,5 +1,5 @@
 NAME=haiku-helloworld
-TARGETNAME=SimpleApp
+TARGETNAME=SimpleWindow
 PLATFORM=HaikuGCC4
 SCM=git
 GROUP=Source files
