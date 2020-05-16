@@ -3,14 +3,14 @@
 #include "WaveView.h"
 #include "TimeKeeper.h"
 #include "RegularWindow.h"
+#include "Utils.h"
 
 #include <interface/MenuBar.h>
+#include <interface/Menu.h>
+#include <interface/MenuItem.h>
 #include <interface/Alert.h>
 #include <support/Autolock.h>
 #include <stdio.h>
-
-extern void Error(const char* message, status_t code);
-
 
 enum {
     WINDOW_CLOSED = 'wcld',
@@ -52,13 +52,12 @@ ClockworkWaveApp::Quit()
 void
 ClockworkWaveApp::MakeClockWin()
 {
-    BMenuBar* menuBar;
-    BView* view;
-
     fClockWin = new RegularWindow(BRect(20, 20, 200, 140), "Clock Window",
-				  B_TITLED_WINDOW, 0, WINDOW_CLOSED);
-    menuBar = MakeMenuBar(true);
-    view = new ClockView(BRect(0, 0, 0, 0), B_FOLLOW_ALL_SIDES, fTimeKeeper);
+				  B_TITLED_WINDOW,
+				  0,
+				  WINDOW_CLOSED);
+    BMenuBar* menuBar = MakeMenuBar(true);
+    BView* view = new ClockView(BRect(0, 0, 0, 0), B_FOLLOW_ALL_SIDES, fTimeKeeper);
     view->SetViewColor(0xD0, 0xD0, 0xD0);
     fClockWin->InitContent(menuBar, view);
 }
@@ -67,13 +66,38 @@ ClockworkWaveApp::MakeClockWin()
 void
 ClockworkWaveApp::MakeWaveWin()
 {
+    fWaveWin = new RegularWindow(BRect(20, 20, 200, 140), "Wave Window",
+				 B_TITLED_WINDOW,
+				 B_NOT_RESIZABLE | B_NOT_ZOOMABLE,
+				 WINDOW_CLOSED);
+    BMenuBar* menuBar = MakeMenuBar(true);
+    BView* view = new WaveView(BRect(0, 0, 0, 0), B_FOLLOW_ALL_SIDES, fTimeKeeper);
+    fWaveWin->InitContent(menuBar, view);
 }
 
 
 BMenuBar*
 ClockworkWaveApp::MakeMenuBar(bool forClock)
 {
-    return nullptr;
+    BMenuBar* menuBar = new BMenuBar(BRect(0, 0, 0, 0), B_EMPTY_STRING);
+    BMenu* fileMenu = new BMenu("File");
+    menuBar->AddItem(fileMenu);
+    fileMenu->AddItem(new BMenuItem("About ClockworkWave" B_UTF8_ELLIPSIS,
+				    new BMessage(B_ABOUT_REQUESTED)));
+    fileMenu->AddSeparatorItem();
+    if (forClock) {
+	fileMenu->AddItem(new BMenuItem("Show Clock",
+					new BMessage(SHOW_CLOCK)));	
+    }
+    else {
+	fileMenu->AddItem(new BMenuItem("Show Wave",
+					new BMessage(SHOW_WAVE)));	
+    }
+    fileMenu->AddSeparatorItem();
+    fileMenu->AddItem(new BMenuItem("Quit",
+				    new BMessage(B_QUIT_REQUESTED)));	
+    fileMenu->SetTargetForItems(this);
+    return menuBar;
 }
 
 
@@ -84,12 +108,15 @@ ClockworkWaveApp::MessageReceived(BMessage* message)
     case WINDOW_CLOSED:
 	CheckWindow(message);
 	break;
+
     case SHOW_CLOCK:
 	ShowClock();
 	break;
+
     case SHOW_WAVE:
 	ShowWave();
 	break;
+	
     default:
 	BApplication::MessageReceived(message);
     }
@@ -154,15 +181,5 @@ void ClockworkWaveApp::ShowWindow(BWindow* window)
     if (window->IsHidden())
 	window->Show();
     else if (! window->IsActive())
-	window->Active();
-}
-
-
-void Error(const char* message, status_t code)
-{
-    BAlert* alert;
-    char buff[256];
-    sprintf(buff, "%s : %d", message, code);
-    alert = new BAlert("about box", buff, "OK");
-    alert->Go(nullptr);
+	window->Activate();
 }

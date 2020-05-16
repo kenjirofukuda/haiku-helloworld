@@ -7,7 +7,7 @@ class RegularWindow;
 class TimeKeeper;
 class BMenuBar;
 
-class ClockworkWaveApp : BApplication
+class ClockworkWaveApp : public BApplication
 {
 public:
     ClockworkWaveApp();

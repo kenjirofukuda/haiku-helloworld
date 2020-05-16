@@ -1,9 +1,9 @@
-#include "SimpleApp.h"
+#include "ClockworkWaveApp.h"
 
 int
 main(void)
 {
-    SimpleApp app;
+    ClockworkWaveApp app;
     app.Run();
     return 0;
 }

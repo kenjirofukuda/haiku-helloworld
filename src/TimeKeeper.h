@@ -37,9 +37,9 @@ private:
 
 private:
     thread_id fWatcher;
-    bigtime_t fWatcherPeriod;
+    bigtime_t fWatchPeriod;
     BList*    fTaskList;
-    BLocker   fLoker;
+    BLocker   fLocker;
 };
 
 #endif // TIME_KEEPER_H
