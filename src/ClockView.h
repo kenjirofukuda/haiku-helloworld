@@ -12,8 +12,8 @@ public:
     ClockView(BRect frame, uint32 resizeMask, TimeKeeper* timeKeeper);
     ~ClockView();
 
-    void AttachedToWindow();
-    void DettachedFromWindow();
+    void AttachedToWindow() override;
+    void DetachedFromWindow() override;
     void Draw(BRect updateRect) override;
 
     void MessageReceived(BMessage* message) override;

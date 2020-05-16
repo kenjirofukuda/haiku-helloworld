@@ -38,14 +38,14 @@ err:
 }
 
 
-void ClockView::DettachedFromWindow()
+void ClockView::DetachedFromWindow()
 {
     status_t sts = fTimeKeeper->RemoveSchedule(this, UPDATE_TIME);   
     if (sts != B_OK)
 	goto err; 
     return;
 err:
-    ::Error("ClockView::DettachedFromWindow", sts);
+    ::Error("ClockView::DetachedFromWindow", sts);
 }
 
 

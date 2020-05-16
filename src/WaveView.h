@@ -9,8 +9,8 @@ public:
     WaveView(BRect frame, uint32 resizeMask, TimeKeeper* timeKeeper);
     ~WaveView();
 
-    void AttachedToWindow();
-    void DettachedFromWindow();
+    void AttachedToWindow() override;
+    void DetachedFromWindow() override;
     void Pulse() override;
 
     void MessageReceived(BMessage* message) override;

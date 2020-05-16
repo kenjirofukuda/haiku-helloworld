@@ -60,19 +60,21 @@ ClockworkWaveApp::MakeClockWin()
     BView* view = new ClockView(BRect(0, 0, 0, 0), B_FOLLOW_ALL_SIDES, fTimeKeeper);
     view->SetViewColor(0xD0, 0xD0, 0xD0);
     fClockWin->InitContent(menuBar, view);
+    fClockWin->Show();
 }
 
 
 void
 ClockworkWaveApp::MakeWaveWin()
 {
-    fWaveWin = new RegularWindow(BRect(20, 20, 200, 140), "Wave Window",
+    fWaveWin = new RegularWindow(BRect(250, 200, 450, 400), "Wave Window",
 				 B_TITLED_WINDOW,
 				 B_NOT_RESIZABLE | B_NOT_ZOOMABLE,
 				 WINDOW_CLOSED);
-    BMenuBar* menuBar = MakeMenuBar(true);
+    BMenuBar* menuBar = MakeMenuBar(false);
     BView* view = new WaveView(BRect(0, 0, 0, 0), B_FOLLOW_ALL_SIDES, fTimeKeeper);
     fWaveWin->InitContent(menuBar, view);
+    fWaveWin->Show();
 }
 
 
@@ -86,12 +88,12 @@ ClockworkWaveApp::MakeMenuBar(bool forClock)
 				    new BMessage(B_ABOUT_REQUESTED)));
     fileMenu->AddSeparatorItem();
     if (forClock) {
-	fileMenu->AddItem(new BMenuItem("Show Clock",
-					new BMessage(SHOW_CLOCK)));	
-    }
-    else {
 	fileMenu->AddItem(new BMenuItem("Show Wave",
 					new BMessage(SHOW_WAVE)));	
+    }
+    else {
+	fileMenu->AddItem(new BMenuItem("Show Clock",
+					new BMessage(SHOW_CLOCK)));	
     }
     fileMenu->AddSeparatorItem();
     fileMenu->AddItem(new BMenuItem("Quit",

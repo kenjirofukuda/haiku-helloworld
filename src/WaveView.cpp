@@ -48,14 +48,14 @@ bail:
 }
 
 
-void WaveView::DettachedFromWindow()
+void WaveView::DetachedFromWindow()
 {
     status_t sts = fTimeKeeper->RemoveSchedule(this, UPDATE_COLOR);   
     if (sts != B_OK)
 	goto bail; 
     return;
 bail:
-    ::Error("WaveView::DettachedFromWindow", sts);
+    ::Error("WaveView::DetachedFromWindow", sts);
 }
 
 
