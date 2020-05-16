@@ -3,9 +3,9 @@
 
 #include <app/Application.h>
 
-// class RegularWindow;
-// class TimeKeeper;
-// class BMenuBar;
+class RegularWindow;
+class TimeKeeper;
+class BMenuBar;
 
 class ClockworkWaveApp : BApplication
 {
@@ -15,7 +15,23 @@ public:
 private:
     void ReadyToRun() override;
     void Quit() override;
+
+    void MakeClockWin();
+    void MakeWaveWin();
+    BMenuBar* MakeMenuBar(bool forClock);
+
     void MessageReceived(BMessage* message) override;
+    void AboutRequested() override;
+    void CheckWindow(BMessage* message);
+    void ShowClock();
+    void ShowWave();
+
+    void ShowWindow(BWindow* window);
+    
+private:
+    RegularWindow* fClockWin;
+    RegularWindow* fWaveWin;
+    TimeKeeper* fTimeKeeper;
 };
 
 
