@@ -1,12 +1,11 @@
 #ifndef SIMPLE_VIEW_H
 #define SIMPLE_VIEW_H
-#include <interface/View.h>
+#include <View.h>
 
-class ButtonView : public BView 
-{
+class ButtonView : public BView {
 public:
-    ButtonView(BRect frame, const char *name,
-               uint32 resizeMask, uint32 flags);
+	ButtonView(BRect frame, const char* name,
+			   uint32 resizeMask, uint32 flags);
 
 };
 

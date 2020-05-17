@@ -3,24 +3,29 @@
 
 #include "TimeKeeper.h"
 #include "TimedView.h"
+
+#include <Bitmap.h>
 #include <time.h>
 
 class TimeKeeper;
 
 class ClockView : public TimedView {
 public:
-    ClockView(BRect frame, uint32 resizeMask, TimeKeeper* timeKeeper);
-    virtual ~ClockView();
+	ClockView(BRect frame, uint32 resizeMask, TimeKeeper* timeKeeper);
+	virtual ~ClockView();
 
-    void AttachedToWindow() override;
-    void DetachedFromWindow() override;
-    void Draw(BRect updateRect) override;
+	void AttachedToWindow() override;
+	void DetachedFromWindow() override;
+	void Draw(BRect updateRect) override;
+	void DrawTime(BView* view);
 
-    void MessageReceived(BMessage* message) override;
-    void UpdateTime();
-    
+	void MessageReceived(BMessage* message) override;
+	void UpdateTime();
+
 private:
-    tm fTime;
+	bool fUseOffscreen;
+	tm fTime;
+	BBitmap* fOffscreen;
 };
 
 #endif // CLOCK_VIEW_H

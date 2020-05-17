@@ -1,20 +1,20 @@
 #ifndef REGULAR_WINDOW_H
 #define REGULAR_WINDOW_H
-#include <interface/Window.h>
+#include <Window.h>
 
 extern const char* kSender;
 
-class RegularWindow : public BWindow
-{
+class RegularWindow : public BWindow {
 public:
-    RegularWindow(BRect frame, const char* title, window_type type, uint32 flags, uint32 quitMsg);
-  
-    void Quit() override; 
+	RegularWindow(BRect frame, const char* title, window_type type,
+				  uint32 flags, uint32 quitMsg);
 
-    void InitContent(BView* content);
-    void InitContent(BMenuBar* menuBar, BView* content);
+	void Quit() override;
+
+	void InitContent(BView* content);
+	void InitContent(BMenuBar* menuBar, BView* content);
 private:
-    uint32 fQuitMsg; 
+	uint32 fQuitMsg;
 };
 
 #endif // REGULAR_WINDOW_H

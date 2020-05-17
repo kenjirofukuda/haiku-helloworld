@@ -7,31 +7,30 @@ class RegularWindow;
 class TimeKeeper;
 class BMenuBar;
 
-class ClockworkWaveApp : public BApplication
-{
+class ClockworkWaveApp : public BApplication {
 public:
-    ClockworkWaveApp();
-    
+	ClockworkWaveApp();
+
 private:
-    void ReadyToRun() override;
-    void Quit() override;
+	void ReadyToRun() override;
+	void Quit() override;
 
-    void MakeClockWin();
-    void MakeWaveWin();
-    BMenuBar* MakeMenuBar(bool forClock);
+	void MakeClockWin();
+	void MakeWaveWin();
+	BMenuBar* MakeMenuBar(bool forClock);
 
-    void MessageReceived(BMessage* message) override;
-    void AboutRequested() override;
-    void CheckWindow(BMessage* message);
-    void ShowClock();
-    void ShowWave();
+	void MessageReceived(BMessage* message) override;
+	void AboutRequested() override;
+	void CheckWindow(BMessage* message);
+	void ShowClock();
+	void ShowWave();
 
-    void ShowWindow(BWindow* window);
-    
+	void ShowWindow(BWindow* window);
+
 private:
-    RegularWindow* fClockWin;
-    RegularWindow* fWaveWin;
-    TimeKeeper* fTimeKeeper;
+	RegularWindow* fClockWin;
+	RegularWindow* fWaveWin;
+	TimeKeeper* fTimeKeeper;
 };
 
 

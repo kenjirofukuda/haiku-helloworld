@@ -6,20 +6,20 @@
 
 class WaveView : public TimedView {
 public:
-    WaveView(BRect frame, uint32 resizeMask, TimeKeeper* timeKeeper);
-    virtual ~WaveView();
+	WaveView(BRect frame, uint32 resizeMask, TimeKeeper* timeKeeper);
+	virtual ~WaveView();
 
-    void AttachedToWindow() override;
-    void DetachedFromWindow() override;
-    void Pulse() override;
+	void AttachedToWindow() override;
+	void DetachedFromWindow() override;
+	void Pulse() override;
 
-    void MessageReceived(BMessage* message) override;
-    void UpdateColor();
+	void MessageReceived(BMessage* message) override;
+	void UpdateColor();
 
 private:
-    uint8 fCurrColor;
-    float fWaveRadius;
-    BPoint fWaveOrigin;
+	uint8 fCurrColor;
+	float fWaveRadius;
+	BPoint fWaveOrigin;
 };
 
 #endif // WAVE_VIEW_H

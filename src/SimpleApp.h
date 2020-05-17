@@ -6,13 +6,13 @@ class BMenuBar;
 
 class SimpleApp : public BApplication {
 public:
-    SimpleApp();
+	SimpleApp();
 
 private:
-  void ReadyToRun() override;
-  void AboutRequested() override;
-  
-  BMenuBar* MakeMenuBar();
+	void ReadyToRun() override;
+	void AboutRequested() override;
+
+	BMenuBar* MakeMenuBar();
 };
 
 #endif // SIMPLE_APP_H

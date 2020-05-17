@@ -1,18 +1,17 @@
 #ifndef KG_CIRCLE_H
 #define KG_CIRCLE_H
-#include <interface/View.h>
+#include <View.h>
 
-class KGCircle
-{
+class KGCircle {
 public:
-    KGCircle(BPoint center, float radius);
+	KGCircle(BPoint center, float radius);
 
-    bool Contains(BPoint where) const;
-    void DrawOn(BView* view) const;
+	bool Contains(BPoint where) const;
+	void DrawOn(BView* view) const;
 
 private:
-    BPoint fCenter;
-    float fRadius;
+	BPoint fCenter;
+	float fRadius;
 };
 
 #endif // KG_CIRCLE_H

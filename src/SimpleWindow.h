@@ -3,13 +3,12 @@
 
 #include "RegularWindow.h"
 
-class SimpleWindow : public RegularWindow
-{
+class SimpleWindow : public RegularWindow {
 public:
-    SimpleWindow(BRect frame);
+	SimpleWindow(BRect frame);
 
-private:    
-    bool QuitRequested() override;
+private:
+	bool QuitRequested() override;
 };
 
 #endif // SIMPLE_WINDOW_H
