@@ -1,0 +1,17 @@
+--style=stroustrup
+--indent-switches
+--indent-continuation=1
+--indent=force-tab
+--attach-classes
+--max-continuation-indent=72
+--pad-oper
+--pad-comma
+--pad-header
+--align-pointer=type
+--align-reference=type
+--break-one-line-headers
+--remove-braces
+--break-return-type
+--max-code-length=72
+--lineend=linux
+ 
