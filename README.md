@@ -26,19 +26,20 @@ Haikuには似合わない感がある。（とはいえ、既にサンプルコ
 
 ## 推奨される開発方法との相違
 
-* `jam` ベースではなく `CMake`
-* `haiku-format` ではなく `astyle`
-* `Paladin` + `Koder` ではなく `emacs`
+* [`jam`](https://www.perforce.com/documentation/jam-documentation) ベースではなく `CMake`
+* [`haiku-format`](https://github.com/owenca/haiku-format) ではなく [`astyle`](http://astyle.sourceforge.net/)
+* [`Paladin`](https://github.com/adamfowleruk/Paladin) + [`Koder`](https://github.com/KapiX/Koder) ではなく `emacs`
 
 否定ではなく、ニワカなため試していないだけ。
 
-なかなかなれた環境からの移行は難しいのだが、Paladin + Koder でコード補完ができるのであれば使ってみたい。
+なかなか慣れた環境からの移行は難しいのだが、Paladin + Koder でコード補完ができるのであれば使ってみたい。
 
 ## 開発環境の整備
 
+* [ ] ccls
 * [ ] emacs
-** [ ] ccls の導入
-** [ ] campany-lsp clangd (まだ設定不足)
+    * [ ] campany with ccls
+    * [ ] campany-lsp clangd (まだ設定不足)
 
 
 ## 書式の統一化
@@ -58,3 +59,11 @@ Haikuには似合わない感がある。（とはいえ、既にサンプルコ
 ```
 astyle --options=astylerc_haiku src/*.cpp src/*.h
 ```
+
+## github 上でのコードの閲覧
+
+Haiku はハードタブを推奨するため、ブラウザの標準タブ幅である8によりガタガタに表示される。
+
+回避策として
+
+[タブ幅4の閲覧](./Tab4Links.md)を参照

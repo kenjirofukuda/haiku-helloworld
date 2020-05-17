@@ -1,10 +1,10 @@
 #include "TimeKeeper.h"
 #include "Utils.h"
 
-#include <support/Debug.h>
-#include <app/Handler.h>
-#include <support/List.h>
-#include <support/Autolock.h>
+#include <Debug.h>
+#include <Handler.h>
+#include <List.h>
+#include <Autolock.h>
 
 typedef struct TaskInfo {
 	uint32 exec_time;

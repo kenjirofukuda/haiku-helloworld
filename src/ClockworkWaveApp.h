@@ -1,7 +1,7 @@
 #ifndef CLOCKWORK_WAVE_APP_H
 #define CLOCKWORK_WAVE_APP_H
 
-#include <app/Application.h>
+#include <Application.h>
 
 class RegularWindow;
 class TimeKeeper;

@@ -1,7 +1,7 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-#include <support/SupportDefs.h>
+#include <SupportDefs.h>
 
 extern void Error(const char* message, status_t code);
 

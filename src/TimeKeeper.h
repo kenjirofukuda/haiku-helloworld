@@ -1,8 +1,8 @@
 #ifndef TIME_KEEPER_H
 #define TIME_KEEPER_H
 
-#include <support/Locker.h>
-#include <support/SupportDefs.h>
+#include <Locker.h>
+#include <SupportDefs.h>
 
 class BHandler;
 class BMessage;

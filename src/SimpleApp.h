@@ -1,6 +1,6 @@
 #ifndef SIMPLE_APP_H
 #define SIMPLE_APP_H
-#include <app/Application.h>
+#include <Application.h>
 
 class BMenuBar;
 

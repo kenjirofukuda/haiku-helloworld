@@ -57,3 +57,8 @@ _deps
 
 # Ghostwriter
 *.md.backup
+
+# VSCode
+.vscode/
+.ccls-cache/
+

@@ -1,6 +1,6 @@
 #include "TimedView.h"
 
-#include <support/Debug.h>
+#include <Debug.h>
 
 #include "TimeKeeper.h"
 #include "Utils.h"
