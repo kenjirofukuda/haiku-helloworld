@@ -2,15 +2,15 @@
 #define CLOCK_VIEW_H
 
 #include "TimeKeeper.h"
-#include <interface/View.h>
+#include "TimedView.h"
 #include <time.h>
 
 class TimeKeeper;
 
-class ClockView : public BView {
+class ClockView : public TimedView {
 public:
     ClockView(BRect frame, uint32 resizeMask, TimeKeeper* timeKeeper);
-    ~ClockView();
+    virtual ~ClockView();
 
     void AttachedToWindow() override;
     void DetachedFromWindow() override;
@@ -20,7 +20,6 @@ public:
     void UpdateTime();
     
 private:
-    TimeKeeper* fTimeKeeper;
     tm fTime;
 };
 

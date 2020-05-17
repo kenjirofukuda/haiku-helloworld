@@ -2,12 +2,12 @@
 #define WAVE_VIEW_H
 
 #include "TimeKeeper.h"
-#include <interface/View.h>
+#include "TimedView.h"
 
-class WaveView : public BView {
+class WaveView : public TimedView {
 public:
     WaveView(BRect frame, uint32 resizeMask, TimeKeeper* timeKeeper);
-    ~WaveView();
+    virtual ~WaveView();
 
     void AttachedToWindow() override;
     void DetachedFromWindow() override;
@@ -17,7 +17,6 @@ public:
     void UpdateColor();
 
 private:
-    TimeKeeper* fTimeKeeper;
     uint8 fCurrColor;
     float fWaveRadius;
     BPoint fWaveOrigin;

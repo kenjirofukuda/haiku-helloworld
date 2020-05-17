@@ -1,6 +1,9 @@
 #include "ClockView.h"
+
+#include <stdio.h>
+
+#include "TimeKeeper.h"
 #include "Utils.h"
-#include <support/Debug.h>
 
 enum {
     UPDATE_TIME = 'uptm'
@@ -8,13 +11,13 @@ enum {
 
 
 ClockView::ClockView(BRect frame, uint32 resizeMask, TimeKeeper* timeKeeper)
-    : BView(frame, "ClockView", resizeMask, B_WILL_DRAW), fTimeKeeper(timeKeeper)
+  : TimedView(frame, "ClockView", resizeMask, B_WILL_DRAW, timeKeeper)
 {
-    ASSERT(timeKeeper != nullptr);
     fTime.tm_hour = 0;
     fTime.tm_min = 0;
     fTime.tm_sec = 0;    
 }
+
 
 ClockView::~ClockView()
 {
@@ -28,7 +31,7 @@ void ClockView::AttachedToWindow()
     schedule.message = new BMessage(UPDATE_TIME);
     schedule.period = 1;
     schedule.first_time = ::real_time_clock();
-    status_t sts = fTimeKeeper->InsertSchedule(schedule);
+    status_t sts = AddSchedule(schedule);
     if (sts != B_OK)
 	goto err;
     UpdateTime();
@@ -40,7 +43,7 @@ err:
 
 void ClockView::DetachedFromWindow()
 {
-    status_t sts = fTimeKeeper->RemoveSchedule(this, UPDATE_TIME);   
+    status_t sts = RemoveSchedule(UPDATE_TIME);   
     if (sts != B_OK)
 	goto err; 
     return;
@@ -72,7 +75,7 @@ void ClockView::MessageReceived(BMessage* message)
 	break;
 
     default:
-	BView::MessageReceived(message);
+	TimedView::MessageReceived(message);
     }
 }
 

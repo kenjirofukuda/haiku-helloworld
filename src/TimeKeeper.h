@@ -20,7 +20,7 @@ typedef struct ScheduleInfo {
 class TimeKeeper {
 public:
     TimeKeeper();
-    ~TimeKeeper();
+    virtual ~TimeKeeper();
 
     status_t InsertSchedule(const ScheduleInfo& schedule);
     status_t RemoveSchedule(const BHandler* client, uint32 code);

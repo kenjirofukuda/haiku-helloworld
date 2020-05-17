@@ -13,9 +13,8 @@ enum {
 const float kInitialRadius = 10;
 
 WaveView::WaveView(BRect frame, uint32 resizeMask, TimeKeeper* timeKeeper)
-    : BView(frame, "Wave", resizeMask, B_PULSE_NEEDED)
+  : TimedView(frame, "Wave", resizeMask, B_PULSE_NEEDED, timeKeeper)
 {
-    fTimeKeeper = timeKeeper;
     fCurrColor = 255;
     fWaveRadius = kInitialRadius;
 }
@@ -34,7 +33,7 @@ void WaveView::AttachedToWindow()
     schedule.message = new BMessage(UPDATE_COLOR);
     schedule.period = 4;
     schedule.first_time = ::real_time_clock() + 4;
-    status_t sts = fTimeKeeper->InsertSchedule(schedule);
+    status_t sts = AddSchedule(schedule);
     if (sts != B_OK)
 	goto bail;
     UpdateColor();
@@ -50,7 +49,7 @@ bail:
 
 void WaveView::DetachedFromWindow()
 {
-    status_t sts = fTimeKeeper->RemoveSchedule(this, UPDATE_COLOR);   
+    status_t sts = RemoveSchedule(UPDATE_COLOR);   
     if (sts != B_OK)
 	goto bail; 
     return;
@@ -97,7 +96,7 @@ void WaveView::MessageReceived(BMessage* message)
 	break;
 
     default:
-	BView::MessageReceived(message);
+	TimedView::MessageReceived(message);
     }
 }
 
