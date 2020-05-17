@@ -1,6 +1,6 @@
 # haiku-helloworld
 
-`Haiku` の練習空間
+`Haiku`プログラミングの練習空間
 
 ## 練習の素材
 
@@ -13,13 +13,32 @@
 * [x] コンパイラーフラグはc++17
 * [x] `NULL` ではなく `nullptr`
 * [x] `Draw(BRect update)`ではなく`Invalidate(BRect updateRect)`または`Invalidate()`
+* [x] `<interface/Window.h>` ではな `<Window.h>`
 * [ ] `BList`ではなく`BObjectList`
+* [ ] new ではなく uniqe_ptr, shared_ptrがまともに使えるか検証
+* [ ] STLの採用
+
+STLは便利かもしれないが 
+* std:: などダブルコロンを多用し視認性が劣る。
+* コードサイズが肥大化する。
+Haikuには似合わない感がある。（とはいえ、既にサンプルコード内で採用されている）
+
 
 ## 推奨される開発方法との相違
 
 * `jam` ベースではなく `CMake`
 * `haiku-format` ではなく `astyle`
 * `Paladin` + `Koder` ではなく `emacs`
+
+否定ではなく、ニワカなため試していないだけ。
+
+なかなかなれた環境からの移行は難しいのだが、Paladin + Koder でコード補完ができるのであれば使ってみたい。
+
+## 開発環境の整備
+
+* [ ] emacs
+** [ ] ccls の導入
+** [ ] campany-lsp clangd (まだ設定不足)
 
 
 ## 書式の統一化
@@ -39,5 +58,3 @@
 ```
 astyle --options=astylerc_haiku src/*.cpp src/*.h
 ```
-
-
