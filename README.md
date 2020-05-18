@@ -67,3 +67,28 @@ Haiku はハードタブを推奨するため、ブラウザの標準タブ幅�
 回避策として
 
 [タブ幅4の閲覧](./Tab4Links.md)を参照
+
+# VSCodeの設定(Linux)
+
+## c_cpp_properties.json
+
+HaikuのターミナルでincludePath部分を生成しておく
+
+```
+ruby -e 'p ENV["BEINCLUDES"].split(/;/).map { |each|
+	"${haiku_repo}/" +  each.gsub("/boot/system/develop/", "")
+	.gsub("headers/be", "headers/os") 
+}'
+```
+
+あとは、
+
+```
+"env": { 
+	"haiku_repo": "<path to haiku repository">, 
+	... 
+},
+...
+```
+
+
