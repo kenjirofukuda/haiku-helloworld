@@ -1,4 +1,4 @@
-clang
+%clang
 -I
 /boot/system/develop/headers
 -I
