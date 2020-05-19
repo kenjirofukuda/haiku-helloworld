@@ -62,13 +62,22 @@ astyle --options=astylerc_haiku src/*.cpp src/*.h
 
 ## github 上でのコードの閲覧
 
-Haiku はハードタブを推奨するため、ブラウザの標準タブ幅である8によりガタガタに表示される。
+~~Haiku はハードタブを推奨するため、ブラウザの標準タブ幅である8によりガタガタに表示される。~~
 
-回避策として
+~~回避策として~~
 
-[タブ幅4の閲覧](./Tab4Links.md)を参照
+~~[タブ幅4の閲覧](./Tab4Links.md)を参照~~
+
+EditorConfigで置き換えました。
+
+
 
 # VSCodeの設定(Linux)
+
+残念ながら Haiku のソースコード探索は Haiku 上よりも VSCodeのほうが便利である。
+
+emacs 環境 (lsp with clangd)では　今ひとつなのが残念。
+ccls が導入できればまたかわって来るかもしれない。
 
 ## c_cpp_properties.json
 
@@ -90,5 +99,3 @@ ruby -e 'p ENV["BEINCLUDES"].split(/;/).map { |each|
 },
 ...
 ```
-
-
