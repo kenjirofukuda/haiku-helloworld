@@ -25,6 +25,8 @@ ClockView::ClockView(BRect frame, uint32 resizeMask,
 
 ClockView::~ClockView()
 {
+	if (fOffscreen != nullptr)
+		delete fOffscreen;
 }
 
 

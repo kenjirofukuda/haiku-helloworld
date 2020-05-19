@@ -5,6 +5,8 @@
 #include <Screen.h>
 #include <Window.h>
 #include <Debug.h>
+#include <Bitmap.h>
+#include <View.h>
 
 enum {
 	UPDATE_COLOR = 'upcl'
@@ -18,11 +20,14 @@ WaveView::WaveView(BRect frame, uint32 resizeMask,
 {
 	fCurrColor = 255;
 	fWaveRadius = kInitialRadius;
+	fOffscreen = nullptr;
 }
 
 
 WaveView::~WaveView()
 {
+	if (fOffscreen != nullptr)
+		delete fOffscreen;
 }
 
 
@@ -36,6 +41,14 @@ WaveView::AttachedToWindow()
 	schedule.period = 4;
 	schedule.first_time = ::real_time_clock() + 4;
 	status_t sts = AddSchedule(schedule);
+
+	fOffscreen = new BBitmap(bounds, B_COLOR_8_BIT, true);
+	BView* offView = new BView(bounds, "", B_FOLLOW_ALL_SIDES, 0);
+	offView->SetHighColor(HighColor());
+	offView->SetViewColor(ViewColor());
+	fOffscreen->AddChild(offView);
+
+	
 	if (sts != B_OK)
 		goto bail;
 	UpdateColor();
@@ -62,6 +75,31 @@ bail:
 
 
 void
+WaveView::Draw(BRect updateRect)
+{
+	DrawBitmap(fOffscreen, updateRect, updateRect);
+}
+
+
+void
+WaveView::DrawWave(BView* targetView, rgb_color waveColor, rgb_color backColor)
+{
+	rgb_color savedColor = targetView->HighColor();
+	targetView->SetHighColor(waveColor);
+	if (fWaveRadius == kInitialRadius)
+		targetView->FillEllipse(fWaveOrigin, fWaveRadius * 2, fWaveRadius * 2);
+	else {
+		targetView->StrokeEllipse(fWaveOrigin,
+								  kInitialRadius + fWaveRadius, kInitialRadius + fWaveRadius);
+		targetView->SetHighColor(backColor);
+		targetView->StrokeEllipse(fWaveOrigin,
+								  fWaveRadius - kInitialRadius, fWaveRadius - kInitialRadius);
+	}
+	targetView->SetHighColor(savedColor);
+}
+
+
+void
 WaveView::Pulse()
 {
 	BScreen screen = Window();
@@ -71,19 +109,16 @@ WaveView::Pulse()
 	else if (fCurrColor == 16)
 		waveColor -= 2;
 
-	rgb_color savedColor = HighColor();
-	SetHighColor(screen.ColorForIndex(waveColor));
-	if (fWaveRadius == kInitialRadius)
-		FillEllipse(fWaveOrigin, fWaveRadius * 2, fWaveRadius * 2);
-	else {
-		StrokeEllipse(fWaveOrigin,
-					  kInitialRadius + fWaveRadius, kInitialRadius + fWaveRadius);
-		SetHighColor(screen.ColorForIndex(fCurrColor));
-		StrokeEllipse(fWaveOrigin,
-					  fWaveRadius - kInitialRadius, fWaveRadius - kInitialRadius);
-	}
-	SetHighColor(savedColor);
-
+	rgb_color waveRGBColor = screen.ColorForIndex(waveColor);
+	rgb_color backRGBColor = screen.ColorForIndex(fCurrColor);
+	DrawWave(this, waveRGBColor, backRGBColor);
+	
+	fOffscreen->Lock();
+	BView *offView = fOffscreen->ChildAt(0);
+	DrawWave(offView, waveRGBColor, backRGBColor);
+	offView->Window()->Flush();
+	fOffscreen->Unlock();
+	Invalidate();
 	if ((fWaveOrigin.x * sqrt(2)) <= (fWaveRadius - kInitialRadius))
 		fWaveRadius = kInitialRadius;
 	else
@@ -111,7 +146,7 @@ WaveView::UpdateColor()
 {
 	ASSERT(Window() != nullptr);
 	BScreen screen = Window();
-	rgb_color newColor = screen.ColorForIndex(fCurrColor--);
+	rgb_color newColor = screen.ColorForIndex(fCurrColor--); // but not used
 	if ((int16) fCurrColor < 0)
 		fCurrColor = 255;
 }
