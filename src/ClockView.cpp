@@ -76,12 +76,8 @@ err:
 void
 ClockView::Draw(BRect updateRect)
 {
-	if (fUseOffscreen) {
-		if (fOffscreen->Lock()) {
-			DrawBitmap(fOffscreen, updateRect, updateRect);
-			fOffscreen->Unlock();
-		}
-	}
+	if (fUseOffscreen) 
+		DrawBitmap(fOffscreen, updateRect, updateRect);
 	else
 		DrawTime(this);
 }
@@ -124,13 +120,17 @@ ClockView::UpdateTime()
 	time_t currTime = time(0);
 	fTime = *(localtime(&currTime));
 	if (fUseOffscreen) {
-		fOffscreen->Lock();
-		BView* offView = fOffscreen->ChildAt(0);
-		DrawTime(offView);
-		offView->Window()->Flush();
-		fOffscreen->Unlock();
+		if (fOffscreen->Lock()) {
+			BView* offView = fOffscreen->ChildAt(0);
+			DrawTime(offView);
+			Draw(offView->Bounds());
+			fOffscreen->Unlock();
+			offView->Window()->Flush();
+		}
 	}
-	Invalidate(Bounds());
+	else {
+		Draw(Bounds());
+	}
 }
 
 

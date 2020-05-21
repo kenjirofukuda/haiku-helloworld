@@ -16,7 +16,7 @@ const float kInitialRadius = 10;
 
 WaveView::WaveView(BRect frame, uint32 resizeMask,
 				   TimeKeeper* timeKeeper)
-	: TimedView(frame, "Wave", resizeMask, B_PULSE_NEEDED, timeKeeper)
+	: TimedView(frame, "Wave", resizeMask, B_WILL_DRAW | B_PULSE_NEEDED, timeKeeper)
 {
 	fCurrColor = 255;
 	fWaveRadius = kInitialRadius;
@@ -36,21 +36,21 @@ WaveView::AttachedToWindow()
 {
 	BRect bounds(Bounds());
 	ScheduleInfo schedule;
+	BView* offView = nullptr;
 	schedule.client = this;
 	schedule.message = new BMessage(UPDATE_COLOR);
 	schedule.period = 4;
 	schedule.first_time = ::real_time_clock() + 4;
 	status_t sts = AddSchedule(schedule);
+	if (sts != B_OK)
+		goto bail;
 
 	fOffscreen = new BBitmap(bounds, B_COLOR_8_BIT, true);
-	BView* offView = new BView(bounds, "", B_FOLLOW_ALL_SIDES, 0);
+	offView = new BView(bounds, "", B_FOLLOW_ALL_SIDES, 0);
 	offView->SetHighColor(HighColor());
 	offView->SetViewColor(ViewColor());
 	fOffscreen->AddChild(offView);
-
 	
-	if (sts != B_OK)
-		goto bail;
 	UpdateColor();
 	Window()->SetPulseRate(100 * 1000);
 
@@ -68,6 +68,8 @@ WaveView::DetachedFromWindow()
 	status_t sts = RemoveSchedule(UPDATE_COLOR);
 	if (sts != B_OK)
 		goto bail;
+	delete fOffscreen;
+	fOffscreen = nullptr;
 	return;
 bail:
 	::Error("WaveView::DetachedFromWindow", sts);
@@ -118,7 +120,7 @@ WaveView::Pulse()
 	DrawWave(offView, waveRGBColor, backRGBColor);
 	offView->Window()->Flush();
 	fOffscreen->Unlock();
-	Invalidate();
+
 	if ((fWaveOrigin.x * sqrt(2)) <= (fWaveRadius - kInitialRadius))
 		fWaveRadius = kInitialRadius;
 	else
